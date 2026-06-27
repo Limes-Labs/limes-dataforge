@@ -70,5 +70,12 @@ Local and public smoke scores are not claims. They are invitations to replay.
 - `harness/`: immutable public smoke scorer and verifier-contract check.
 - `data/public_smoke/`: tiny public corpus and heldout text.
 - `docs/`: anti-cheat, promotion, launch, and agent-notes policies.
+- `docs/agent-quickstart.md`: short instructions for coding agents.
 - `templates/`: submission, result-card, and leaderboard-entry schemas.
 - `tests/`: stdlib tests for contract and scorer behavior.
+
+## Contributing
+
+Start with [CONTRIBUTING.md](CONTRIBUTING.md). Agent-driven attempts should also
+read [docs/agent-quickstart.md](docs/agent-quickstart.md) before editing the
+solution surface.

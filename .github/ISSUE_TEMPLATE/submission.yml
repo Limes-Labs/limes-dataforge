@@ -1,0 +1,66 @@
+name: Candidate submission
+description: Propose a DataForge candidate for public smoke review or trusted replay.
+title: "Candidate: <short method name>"
+labels: ["candidate", "submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Local smoke scores are not official frontier claims. Use this form to document a candidate artifact for review or trusted replay.
+  - type: input
+    id: commit
+    attributes:
+      label: Commit
+      description: Commit SHA or branch containing only editable-path changes.
+      placeholder: "abc1234"
+    validations:
+      required: true
+  - type: dropdown
+    id: status
+    attributes:
+      label: Requested status
+      options:
+        - candidate
+        - verified replay request
+        - replicated replay request
+        - scaling audit request
+    validations:
+      required: true
+  - type: checkboxes
+    id: editable_paths
+    attributes:
+      label: Editable-path confirmation
+      options:
+        - label: I changed only `solution/filter.py`, `solution/rank_documents.py`, `solution/dedup.py`, `solution/curriculum.py`, or `configs/submission.json`.
+          required: true
+        - label: I did not edit `harness/**`, `data/**`, `verifier_data/**`, `challenge.json`, `score.json`, or `leaderboard/**`.
+          required: true
+  - type: textarea
+    id: method
+    attributes:
+      label: Method summary
+      description: Describe the filtering, ranking, deduplication, or curriculum idea.
+    validations:
+      required: true
+  - type: textarea
+    id: smoke
+    attributes:
+      label: Public smoke output
+      description: Paste the JSON output from `scripts/run_smoke.sh`.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: search_accounting
+    attributes:
+      label: Search and agent accounting
+      description: List seeds, selection trials, agent runs, failed variants, and local hardware.
+    validations:
+      required: true
+  - type: textarea
+    id: failure_modes
+    attributes:
+      label: Expected failure modes
+      description: Name cases where the curation rule may overfit, regress, or fail to scale.
+    validations:
+      required: true
