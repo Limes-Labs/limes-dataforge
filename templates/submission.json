@@ -1,0 +1,27 @@
+{
+  "challenge": "limes-dataforge",
+  "status": "candidate",
+  "commit": "<git-sha>",
+  "changed_files": [
+    "solution/filter.py",
+    "solution/rank_documents.py",
+    "solution/dedup.py",
+    "solution/curriculum.py",
+    "configs/submission.json"
+  ],
+  "public_score": {
+    "public_proxy_loss": 0.0,
+    "kept_ratio": 0.0,
+    "dedup_rate": 0.0,
+    "runtime_seconds": 0.0,
+    "dataset_hash": "<sha256>"
+  },
+  "hardware": "local machine description",
+  "seeds": [1],
+  "selection_trials": 1,
+  "method_summary": "Short description of the curation idea.",
+  "expected_failure_modes": [
+    "Describe when this curation rule is expected to fail."
+  ],
+  "agent_notes": "Path or short summary of agent-led search notes, if used."
+}

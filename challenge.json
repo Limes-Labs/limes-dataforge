@@ -1,0 +1,39 @@
+{
+  "id": "limes-dataforge",
+  "name": "Limes DataForge",
+  "cli": "limes-dataforge",
+  "version": "0.1.0",
+  "score": {
+    "direction": "minimize",
+    "primaryMetric": "hidden_val_loss",
+    "publicMetric": "public_proxy_loss"
+  },
+  "editablePaths": [
+    "solution/filter.py",
+    "solution/rank_documents.py",
+    "solution/dedup.py",
+    "solution/curriculum.py",
+    "configs/submission.json"
+  ],
+  "forbiddenPaths": [
+    "harness/**",
+    "data/**",
+    "verifier_data/**",
+    "challenge.json",
+    "score.json",
+    "leaderboard/**"
+  ],
+  "commands": {
+    "test": "python3 -m unittest discover -s tests",
+    "score": "python3 harness/score.py --output score.json",
+    "verify": "python3 harness/verify_hidden.py --public-contract-only"
+  },
+  "statusModel": [
+    "local",
+    "candidate",
+    "verified",
+    "promoted",
+    "replicated",
+    "scaled"
+  ]
+}

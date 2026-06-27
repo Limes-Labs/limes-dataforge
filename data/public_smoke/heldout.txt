@@ -1,0 +1,1 @@
+Small language models need clean data, fixed evaluation, and honest replay before a local result becomes evidence.

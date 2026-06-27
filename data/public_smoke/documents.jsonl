@@ -1,0 +1,6 @@
+{"id":"doc-001","source":"technical","text":"Data filtering can change how a small language model spends its limited training budget. Clean repeated examples may help the model learn stable byte patterns."}
+{"id":"doc-002","source":"noise","text":"SALE SALE SALE cheap tokens cheap tokens click now"}
+{"id":"doc-003","source":"reference","text":"A curation rule should prefer documents with useful evidence, clear language, and enough length to train next-token prediction."}
+{"id":"doc-004","source":"manual","text":"Curriculum ordering is tested here as metadata only. The trusted verifier will train a fixed tiny model and compare hidden validation loss."}
+{"id":"doc-005","source":"duplicate","text":"A curation rule should prefer documents with useful evidence, clear language, and enough length to train next-token prediction."}
+{"id":"doc-006","source":"technical","text":"Heldout scores must not influence candidate selection. Agent notes are useful only when later replay confirms the claimed improvement."}

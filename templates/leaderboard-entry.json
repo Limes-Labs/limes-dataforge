@@ -1,0 +1,26 @@
+{
+  "challenge": "limes-dataforge",
+  "submission_id": "<stable-id>",
+  "status": "candidate",
+  "method_family": "filtering",
+  "commit": "<git-sha>",
+  "score": {
+    "hidden_val_loss": null,
+    "public_proxy_loss": 0.0
+  },
+  "metrics": {
+    "kept_ratio": 0.0,
+    "dedup_rate": 0.0,
+    "runtime_seconds": 0.0,
+    "dataset_hash": "<sha256>"
+  },
+  "replay": {
+    "trusted_runner": null,
+    "seed_count": 0,
+    "scaled_audit": false
+  },
+  "links": {
+    "repo": "https://github.com/Limes-Labs/limes-dataforge",
+    "result_card": null
+  }
+}

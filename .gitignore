@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.DS_Store
+score.json
+runs/
+verifier_data/
+leaderboard/
+tmp/
