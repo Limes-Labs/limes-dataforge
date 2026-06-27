@@ -1,0 +1,34 @@
+{
+  "challenge": "limes-dataforge",
+  "schema_version": "0.1.0",
+  "source": "example-fixture",
+  "disclaimer": "Example candidate data for website development. Not an official leaderboard.",
+  "entries": [
+    {
+      "challenge": "limes-dataforge",
+      "submission_id": "example-public-smoke-baseline",
+      "status": "candidate",
+      "method_family": "filtering",
+      "commit": "example",
+      "score": {
+        "hidden_val_loss": null,
+        "public_proxy_loss": 4.7564438033221315
+      },
+      "metrics": {
+        "kept_ratio": 0.6666666666666666,
+        "dedup_rate": 0.0,
+        "runtime_seconds": 0.01,
+        "dataset_hash": "57e4c9b7ae486a6e1ee63c6665eeedc9ae2489dba27fcd0b8462ae2a685f168f"
+      },
+      "replay": {
+        "trusted_runner": null,
+        "seed_count": 0,
+        "scaled_audit": false
+      },
+      "links": {
+        "repo": "https://github.com/Limes-Labs/limes-dataforge",
+        "result_card": "examples/limeslabs/result-card.example.md"
+      }
+    }
+  ]
+}
