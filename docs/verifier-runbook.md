@@ -20,7 +20,13 @@ before a DataForge result can move beyond `candidate`.
 6. Train the fixed tiny LM with the locked tokenizer, architecture, optimizer,
    schedule, seed list, and token budget.
 7. Emit the official result fields listed in `verifier/replay-contract.json`.
-8. Promote only if the promotion gates in the contract are satisfied.
+8. Validate the emitted replay payload:
+
+   ```bash
+   python3 scripts/validate_replay_result.py --input path/to/replay-result.json
+   ```
+
+9. Promote only if the promotion gates in the contract are satisfied.
 
 ## Required Trusted Artifacts
 
@@ -29,6 +35,7 @@ before a DataForge result can move beyond `candidate`.
 - locked baseline result cards for the same seed policy;
 - downstream mini-eval definition and non-regression threshold;
 - replay log with code hash, dataset hash, seed count, and hardware summary.
+- replay-result JSON that passes `scripts/validate_replay_result.py`.
 
 ## Anti-Probing Notes
 

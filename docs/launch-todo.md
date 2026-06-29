@@ -4,6 +4,8 @@
 - Create fixed dependency lockfile or container.
 - Add trusted runner replay script.
 - Keep `verifier/replay-contract.json` synchronized with the trusted runner.
+- Require trusted runner outputs to pass
+  `scripts/validate_replay_result.py --input path/to/replay-result.json`.
 - Fill trusted-only `verifier_data/manifest.json` with shard hashes before
   promotion opens.
 - Publish baseline repeated-seed result cards.

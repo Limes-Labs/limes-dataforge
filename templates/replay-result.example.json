@@ -1,0 +1,45 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-dataforge",
+  "source": "example-schema-only",
+  "disclaimer": "Schema example only. This is not an official result, trusted replay, or leaderboard record.",
+  "submission_id": "example-public-smoke-baseline",
+  "status": "verified",
+  "commit": "example",
+  "score": 2.914,
+  "metrics": {
+    "hidden_val_loss": 2.914,
+    "public_val_loss": 2.981,
+    "baseline_hidden_val_loss": 2.940,
+    "downstream_mini_eval": 0.61,
+    "train_seconds": 4120.0,
+    "tokens_per_second": 7281.0,
+    "peak_memory_mb": 6420,
+    "dataset_hash": "example-hidden-dataset-sha256",
+    "selection_hash": "0b09e7480ecadb5eb319c36e1e2590ecf0279592ca9dd910354031fb3f0c30f7",
+    "seed_count": 1
+  },
+  "replay": {
+    "trusted_runner": "example-runner",
+    "run_id": "example-run-id",
+    "clean_checkout": true,
+    "network_disabled": true,
+    "seed_count": 1,
+    "code_hash": "example-code-sha256",
+    "dataset_hash": "example-hidden-dataset-sha256",
+    "verifier_contract_hash": "example-contract-sha256",
+    "dependency_lock": "example-container@sha256:0000"
+  },
+  "promotion": {
+    "promotable": false,
+    "reason": "Example schema only; no trusted replay has run.",
+    "gates_passed": ["shape validates"],
+    "gates_failed": ["not an official trusted runner output"],
+    "scaled_audit": false
+  },
+  "links": {
+    "submission": null,
+    "result_card": null,
+    "leaderboard_entry": null
+  }
+}
