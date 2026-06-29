@@ -1,0 +1,65 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-dataforge",
+  "submission_id": "example-public-smoke-baseline",
+  "selection_summary": {
+    "selected_attempt_id": "attempt-002",
+    "selection_reason": "The selected attempt is interface-valid and documents that it does not beat the public baseline on this tiny fixture.",
+    "known_overfit_risks": [
+      "The public heldout text is tiny and must not be treated as hidden evidence.",
+      "Source filtering can overfit to public source labels."
+    ]
+  },
+  "attempts": [
+    {
+      "id": "attempt-001",
+      "status": "rejected",
+      "hypothesis": "Keeping only keyword-heavy technical documents might reduce public proxy loss.",
+      "changed_files": ["solution/filter.py", "configs/submission.json"],
+      "command": "scripts/run_smoke.sh",
+      "public_score": {
+        "public_proxy_loss": 4.9,
+        "baseline_public_proxy_loss": 4.743833261969027,
+        "public_proxy_delta": 0.1561667380309733,
+        "public_proxy_improvement": -0.1561667380309733,
+        "selection_hash": "example-rejected-selection-hash",
+        "dataset_hash": "57e4c9b7ae486a6e1ee63c6665eeedc9ae2489dba27fcd0b8462ae2a685f168f"
+      },
+      "result_summary": "Rejected because the proxy loss moved against the baseline and kept too little diversity.",
+      "failure_modes": [
+        "Likely over-filters non-keyword documents.",
+        "Public fixture is too small to justify replay."
+      ]
+    },
+    {
+      "id": "attempt-002",
+      "status": "selected",
+      "hypothesis": "Use the starter curation hooks as the first replay-shaped candidate fixture.",
+      "changed_files": [
+        "solution/filter.py",
+        "solution/rank_documents.py",
+        "solution/dedup.py",
+        "solution/curriculum.py",
+        "configs/submission.json"
+      ],
+      "command": "scripts/run_smoke.sh",
+      "public_score": {
+        "public_proxy_loss": 4.7564438033221315,
+        "baseline_public_proxy_loss": 4.743833261969027,
+        "public_proxy_delta": 0.012610541353104132,
+        "public_proxy_improvement": -0.012610541353104132,
+        "selection_hash": "0b09e7480ecadb5eb319c36e1e2590ecf0279592ca9dd910354031fb3f0c30f7",
+        "dataset_hash": "57e4c9b7ae486a6e1ee63c6665eeedc9ae2489dba27fcd0b8462ae2a685f168f"
+      },
+      "result_summary": "Selected only as a candidate-shaped example; it is not a public proxy improvement.",
+      "failure_modes": [
+        "Does not beat the public baseline.",
+        "No hidden training replay has run."
+      ]
+    }
+  ],
+  "negative_or_mixed_findings": [
+    "The starter candidate is worse than the public baseline on proxy loss.",
+    "Public proxy movement is not evidence of hidden validation improvement."
+  ]
+}

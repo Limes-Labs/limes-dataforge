@@ -38,6 +38,12 @@ The guard checks that the git diff only touches editable files, that
 needed for triage are present. It is an anti-footgun screen, not a hidden
 verifier and not a promotion decision.
 
+Agent-run submissions should also include validated notes:
+
+```bash
+python3 scripts/validate_agent_notes.py --input agent-notes.json
+```
+
 Do not include hidden data, generated score files, large corpora, model weights,
 or local caches.
 
