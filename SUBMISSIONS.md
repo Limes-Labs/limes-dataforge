@@ -24,6 +24,20 @@ Every candidate should include the exact local command:
 scripts/run_smoke.sh
 ```
 
+## Preflight Guard
+
+Before asking for trusted replay, copy `templates/submission.json` to
+`submission.json`, fill every placeholder, and run:
+
+```bash
+python3 scripts/check_submission.py --manifest submission.json --base origin/main
+```
+
+The guard checks that the git diff only touches editable files, that
+`changed_files` exactly matches the checked diff, and that public-score fields
+needed for triage are present. It is an anti-footgun screen, not a hidden
+verifier and not a promotion decision.
+
 Do not include hidden data, generated score files, large corpora, model weights,
 or local caches.
 

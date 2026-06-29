@@ -28,6 +28,13 @@ Official submissions must not edit:
 The same forbidden paths are listed in `challenge.json` and enforced by trusted
 review before promotion.
 
+The local preflight guard can catch most accidental contract violations before
+review:
+
+```bash
+python3 scripts/check_submission.py --manifest submission.json --base origin/main
+```
+
 ## Prohibited Behavior
 
 - Using hidden data, hidden scores, or final verifier outputs to choose a

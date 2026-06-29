@@ -52,6 +52,19 @@ Lower `public_proxy_loss` is better for the public smoke check. The
 measure whether a candidate changed anything useful on the public fixture. None
 of these public fields is an official leaderboard score.
 
+## Submission Preflight
+
+Completed candidates should include a filled `submission.json` based on
+`templates/submission.json`. Before requesting trusted replay, run:
+
+```bash
+python3 scripts/check_submission.py --manifest submission.json --base origin/main
+```
+
+The guard rejects protected-file edits, files outside the editable surface,
+placeholder manifest values, and missing public-score fields. Passing preflight
+does not imply promotion; it only means the candidate is shaped for review.
+
 ## Official Verifier Contract
 
 The official verifier will apply the same submitted curation code to larger

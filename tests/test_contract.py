@@ -14,6 +14,8 @@ class ContractTests(unittest.TestCase):
         forbidden = set(challenge["forbiddenPaths"])
         for required in {"harness/**", "data/**", "verifier_data/**", "challenge.json", "score.json", "leaderboard/**"}:
             self.assertIn(required, forbidden)
+        self.assertIn("audit", challenge["commands"])
+        self.assertIn("scripts/check_submission.py", challenge["commands"]["audit"])
 
     def test_templates_are_valid_json(self) -> None:
         for path in (ROOT / "templates").glob("*.json"):
