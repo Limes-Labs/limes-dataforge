@@ -12,11 +12,20 @@
       "commit": "example",
       "score": {
         "hidden_val_loss": null,
-        "public_proxy_loss": 4.7564438033221315
+        "public_proxy_loss": 4.7564438033221315,
+        "baseline_public_proxy_loss": 4.743833261969027,
+        "public_proxy_delta": 0.012610541353104132
       },
       "metrics": {
+        "public_proxy_improvement": -0.012610541353104132,
         "kept_ratio": 0.6666666666666666,
         "dedup_rate": 0.0,
+        "selected_document_count": 4,
+        "selected_byte_count": 562,
+        "selection_hash": "0b09e7480ecadb5eb319c36e1e2590ecf0279592ca9dd910354031fb3f0c30f7",
+        "baseline_name": "public_smoke_all_nonempty_dedup_short_to_long",
+        "baseline_document_count": 5,
+        "baseline_selection_hash": "2084e40f6afa59db9a06dc80335d22c90d335e2eabb8e266129c930ef83766b8",
         "runtime_seconds": 0.01,
         "dataset_hash": "57e4c9b7ae486a6e1ee63c6665eeedc9ae2489dba27fcd0b8462ae2a685f168f"
       },

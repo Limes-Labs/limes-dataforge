@@ -12,7 +12,7 @@ Use `templates/submission.json` and provide:
 - method summary;
 - hardware used for local runs;
 - seeds and selection trials;
-- public smoke metrics;
+- public smoke metrics, including baseline delta and selection hash;
 - expected failure modes;
 - agent notes or ablation report, if agents were used.
 

@@ -19,6 +19,11 @@ class LimesLabsFixtureTests(unittest.TestCase):
             self.assertEqual(entry["challenge"], "limes-dataforge")
             self.assertEqual(entry["status"], "candidate")
             self.assertIsNone(entry["score"]["hidden_val_loss"])
+            self.assertIn("baseline_public_proxy_loss", entry["score"])
+            self.assertIn("public_proxy_delta", entry["score"])
+            self.assertIn("public_proxy_improvement", entry["metrics"])
+            self.assertIn("selection_hash", entry["metrics"])
+            self.assertIn("baseline_selection_hash", entry["metrics"])
             self.assertFalse(entry["replay"]["scaled_audit"])
 
     def test_result_card_disclaims_verified_status(self) -> None:

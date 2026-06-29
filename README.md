@@ -35,13 +35,22 @@ The smoke run applies the editable solution hooks to a tiny public JSONL corpus
 and writes `score.json` with:
 
 - `public_proxy_loss`
+- `baseline_public_proxy_loss`
+- `public_proxy_delta`
 - `kept_ratio`
 - `dedup_rate`
+- `selected_document_count`
+- `selected_byte_count`
+- `selection_hash`
+- `baseline_document_count`
+- `baseline_selection_hash`
 - `runtime_seconds`
 - `dataset_hash`
 
-Lower `public_proxy_loss` is better for the public smoke check. It is not an
-official leaderboard score.
+Lower `public_proxy_loss` is better for the public smoke check. The
+`baseline_public_proxy_loss` field is a locked local baseline so agents can
+measure whether a candidate changed anything useful on the public fixture. None
+of these public fields is an official leaderboard score.
 
 ## Official Verifier Contract
 

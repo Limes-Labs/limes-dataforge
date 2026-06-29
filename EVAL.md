@@ -21,13 +21,29 @@ tokenizer-agnostic and deterministic, but it is only a proxy.
 `score.json` contains:
 
 - `public_proxy_loss`
+- `baseline_public_proxy_loss`
+- `public_proxy_delta`: candidate loss minus baseline loss; lower is better.
+- `public_proxy_improvement`: baseline loss minus candidate loss; positive is
+  better.
 - `kept_ratio`
 - `dedup_rate`
+- `selected_document_count`
+- `selected_byte_count`
+- `selection_hash`
+- `baseline_name`
+- `baseline_document_count`
+- `baseline_selection_hash`
 - `runtime_seconds`
 - `dataset_hash`
 
 The dataset hash is computed from public smoke files so agents can detect local
-drift.
+drift. The selection hash is computed from selected public document ids and
+text. It is a reproducibility aid, not a hidden-verifier signal.
+
+The locked public baseline is `public_smoke_all_nonempty_dedup_short_to_long`.
+It keeps non-empty documents, removes exact normalized duplicate text, and sorts
+short to long. It exists so agents can compare local candidates against a stable
+reference without claiming hidden validation progress.
 
 ## Official Hidden Metric
 

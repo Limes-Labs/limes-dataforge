@@ -16,8 +16,16 @@ Describe the filtering, ranking, deduplication, and curriculum changes.
 | Metric | Value |
 | --- | ---: |
 | public_proxy_loss |  |
+| baseline_public_proxy_loss |  |
+| public_proxy_delta |  |
+| public_proxy_improvement |  |
 | kept_ratio |  |
 | dedup_rate |  |
+| selected_document_count |  |
+| selected_byte_count |  |
+| selection_hash |  |
+| baseline_document_count |  |
+| baseline_selection_hash |  |
 | runtime_seconds |  |
 
 ## Replay And Promotion

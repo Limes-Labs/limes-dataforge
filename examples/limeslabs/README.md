@@ -12,6 +12,8 @@ Use them to render:
 Rules for website prototypes:
 
 - show `public_proxy_loss` as local candidate telemetry;
+- show `baseline_public_proxy_loss` and `public_proxy_delta` as local
+  baseline comparison fields;
 - keep `hidden_val_loss` null until trusted replay exists;
 - do not render candidate examples as frontier records;
 - link back to the repository and result card for provenance.
