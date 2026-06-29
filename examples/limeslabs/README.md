@@ -17,3 +17,9 @@ Rules for website prototypes:
 - keep `hidden_val_loss` null until trusted replay exists;
 - do not render candidate examples as frontier records;
 - link back to the repository and result card for provenance.
+
+Validate fixture payloads with:
+
+```bash
+python3 scripts/validate_leaderboard.py --input examples/limeslabs/leaderboard.example.json
+```

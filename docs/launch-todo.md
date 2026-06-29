@@ -12,4 +12,5 @@
 - Add downstream mini-eval non-regression tasks.
 - Add method-family fields for leaderboard grouping.
 - Wire `templates/leaderboard-entry.json` into `limeslabs.eu`.
+- Reuse `scripts/validate_leaderboard.py` in the `limeslabs.eu` ingestion job.
 - Decide how `scaled` audits are scheduled and funded.
