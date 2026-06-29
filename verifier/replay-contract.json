@@ -1,0 +1,113 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-dataforge",
+  "hidden_verifier_ready": false,
+  "mode": "public-contract-only",
+  "official_primary_metric": "hidden_val_loss",
+  "public_metric": "public_proxy_loss",
+  "score_direction": "minimize",
+  "status_model": [
+    "local",
+    "candidate",
+    "verified",
+    "promoted",
+    "replicated",
+    "scaled"
+  ],
+  "submission_preflight": {
+    "command": "python3 scripts/check_submission.py --manifest submission.json --base origin/main",
+    "requires_exact_diff_match": true,
+    "allowed_statuses_before_replay": ["local", "candidate"]
+  },
+  "protected_surface": {
+    "editable_paths": [
+      "solution/filter.py",
+      "solution/rank_documents.py",
+      "solution/dedup.py",
+      "solution/curriculum.py",
+      "configs/submission.json"
+    ],
+    "forbidden_paths": [
+      "harness/**",
+      "data/**",
+      "verifier_data/**",
+      "challenge.json",
+      "score.json",
+      "leaderboard/**"
+    ]
+  },
+  "trusted_runner": {
+    "clean_checkout": true,
+    "network": "disabled during official scoring",
+    "dependency_policy": "fixed lockfile or container before promotion opens",
+    "generated_files_may_not_be_submitted": ["score.json"],
+    "public_scores_are_candidate_only": true
+  },
+  "hidden_data_policy": {
+    "hidden_data_bundled": false,
+    "manifest_path_on_trusted_runners": "verifier_data/manifest.json",
+    "hash_algorithm": "sha256",
+    "candidate_selection_uses_hidden_data": false,
+    "hidden_shards_are_not_disclosed_before_candidate_freeze": true,
+    "public_or_hidden_contamination_check_required": true
+  },
+  "training_protocol": {
+    "model_family": "fixed tiny decoder-only language model",
+    "tokenizer": "fixed by verifier lockfile",
+    "optimizer": "fixed by verifier lockfile",
+    "schedule": "fixed by verifier lockfile",
+    "token_budget": "fixed by verifier track",
+    "seed_policy": {
+      "verified_min_seeds": 1,
+      "promoted_min_seeds": 3,
+      "replicated_min_seeds": 5
+    }
+  },
+  "promotion_gates": {
+    "candidate": [
+      "submission preflight passes",
+      "public smoke score is present",
+      "agent notes or method summary include selection trials"
+    ],
+    "verified": [
+      "trusted runner replays the candidate in a clean checkout",
+      "hidden_val_loss is emitted with dataset and code hashes",
+      "no forbidden path edits are present"
+    ],
+    "promoted": [
+      "median hidden_val_loss over promoted_min_seeds improves the locked baseline",
+      "downstream mini-eval does not regress beyond the launch threshold",
+      "runtime and memory telemetry are present"
+    ],
+    "replicated": [
+      "independent trusted runner repeats the promoted result",
+      "result-card documents negative or mixed runs"
+    ],
+    "scaled": [
+      "larger token or model budget audit preserves the direction of improvement",
+      "scaled result is reported separately from the primary small-budget frontier"
+    ]
+  },
+  "official_result_schema": {
+    "score": "number",
+    "metrics": [
+      "hidden_val_loss",
+      "public_val_loss",
+      "downstream_mini_eval",
+      "train_seconds",
+      "tokens_per_second",
+      "peak_memory_mb",
+      "dataset_hash",
+      "selection_hash",
+      "seed_count",
+      "baseline_hidden_val_loss"
+    ]
+  },
+  "limeslabs_ingestion": {
+    "candidate_entries_allowed": true,
+    "promoted_entries_require_trusted_runner": true,
+    "hidden_metric_must_be_null_before_verified_status": true,
+    "status_field_required": true,
+    "result_card_required_for_promoted_status": true
+  }
+}

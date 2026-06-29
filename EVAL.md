@@ -3,6 +3,7 @@
 The public smoke evaluator is intentionally small. It proves that a submission
 implements the required interface and gives agents a cheap local objective.
 Official scores require the hidden verifier contract described below.
+The public machine-readable contract is `verifier/replay-contract.json`.
 
 ## Public Proxy Loss
 
@@ -58,3 +59,7 @@ The future trusted verifier will compute:
 
 Promotion requires hidden replay and repeated seeds. Scaling audit results are
 reported separately from the primary leaderboard.
+
+The public repository intentionally sets `hidden_verifier_ready` to `false` in
+the replay contract until private shards, hash manifests, lockfiles, and trusted
+runner scripts exist outside the public repo.

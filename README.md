@@ -77,6 +77,14 @@ repeated-seed improvement over the locked baseline plus downstream mini-eval
 non-regression. A result receives the `scaled` label only if it survives a
 larger token or model budget audit.
 
+The machine-readable public verifier contract lives at
+`verifier/replay-contract.json`. Trusted runners can inspect the same contract
+through:
+
+```bash
+python3 harness/verify_hidden.py --public-contract-only
+```
+
 ## Status Labels
 
 ```text
@@ -91,7 +99,10 @@ Local and public smoke scores are not claims. They are invitations to replay.
 - `solution/`: editable participant surface.
 - `harness/`: immutable public smoke scorer and verifier-contract check.
 - `data/public_smoke/`: tiny public corpus and heldout text.
+- `verifier/replay-contract.json`: public replay, promotion, and ingestion
+  contract. It does not include hidden data.
 - `docs/`: anti-cheat, promotion, launch, and agent-notes policies.
+- `docs/verifier-runbook.md`: trusted-runner replay checklist.
 - `docs/agent-quickstart.md`: short instructions for coding agents.
 - `templates/`: submission, result-card, and leaderboard-entry schemas.
 - `examples/limeslabs/`: candidate-only fixtures for website development.

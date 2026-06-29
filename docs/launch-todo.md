@@ -3,6 +3,9 @@
 - Define hidden shard generation and hash policy.
 - Create fixed dependency lockfile or container.
 - Add trusted runner replay script.
+- Keep `verifier/replay-contract.json` synchronized with the trusted runner.
+- Fill trusted-only `verifier_data/manifest.json` with shard hashes before
+  promotion opens.
 - Publish baseline repeated-seed result cards.
 - Define submission frequency limits and anti-probing rules.
 - Add contamination checks for public and hidden data.

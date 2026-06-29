@@ -3,21 +3,11 @@ from __future__ import annotations
 
 import argparse
 import json
+from pathlib import Path
 
 
-CONTRACT = {
-    "hidden_verifier_ready": False,
-    "mode": "public-contract-only",
-    "official_primary_metric": "hidden_val_loss",
-    "requires": [
-        "hidden shard generation and hashes",
-        "fixed tokenizer, model, optimizer, schedule, seeds, and token budget",
-        "trusted runner with no network during scoring",
-        "repeated-seed promotion gate",
-        "downstream mini-eval non-regression",
-        "larger-budget scaling audit for scaled status"
-    ]
-}
+ROOT = Path(__file__).resolve().parents[1]
+CONTRACT_PATH = ROOT / "verifier" / "replay-contract.json"
 
 
 def main() -> int:
@@ -26,7 +16,8 @@ def main() -> int:
     args = parser.parse_args()
     if not args.public_contract_only:
         raise SystemExit("hidden verifier data is not bundled; use --public-contract-only")
-    print(json.dumps(CONTRACT, indent=2, sort_keys=True))
+    contract = json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
+    print(json.dumps(contract, indent=2, sort_keys=True))
     return 0
 
 
