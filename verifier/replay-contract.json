@@ -3,6 +3,7 @@
   "challenge": "limes-dataforge",
   "hidden_verifier_ready": false,
   "mode": "public-contract-only",
+  "task_spec_path": "verifier/task-spec.json",
   "official_primary_metric": "hidden_val_loss",
   "public_metric": "public_proxy_loss",
   "score_direction": "minimize",
@@ -30,6 +31,7 @@
     "forbidden_paths": [
       "harness/**",
       "data/**",
+      "verifier/**",
       "verifier_data/**",
       "challenge.json",
       "score.json",

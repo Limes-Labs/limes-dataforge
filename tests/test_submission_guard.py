@@ -50,11 +50,11 @@ class SubmissionGuardTests(unittest.TestCase):
 
     def test_classifies_editable_forbidden_and_unknown_paths(self) -> None:
         classified = classify_changed_paths(
-            ["solution/filter.py", "harness/score.py", "README.md"],
+            ["solution/filter.py", "harness/score.py", "verifier/task-spec.json", "README.md"],
             self.contract,
         )
         self.assertEqual(classified["editable"], ["solution/filter.py"])
-        self.assertEqual(classified["forbidden"], ["harness/score.py"])
+        self.assertEqual(classified["forbidden"], ["harness/score.py", "verifier/task-spec.json"])
         self.assertEqual(classified["unknown"], ["README.md"])
 
     def test_valid_manifest_passes(self) -> None:

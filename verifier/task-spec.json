@@ -1,0 +1,127 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-dataforge",
+  "purpose": "Machine-readable description of the public curation hooks and the hidden replay axes. This file does not expose hidden data.",
+  "public_surface": {
+    "candidate_only": true,
+    "document_pool": "data/public_smoke/documents.jsonl",
+    "heldout_text": "data/public_smoke/heldout.txt",
+    "public_metric": "public_proxy_loss",
+    "official_metric": "hidden_val_loss"
+  },
+  "curation_hooks": [
+    {
+      "id": "filter",
+      "editable_file": "solution/filter.py",
+      "required_entrypoint": "keep_document(document, config)",
+      "research_questions": [
+        "Can quality and source filters improve fixed-budget small-LM training?",
+        "Can filters reject low-value text without collapsing domain diversity?"
+      ],
+      "hidden_replay_axes": [
+        "source-mix shift",
+        "document-length shift",
+        "duplicate and near-duplicate clusters",
+        "quality false positives and false negatives"
+      ],
+      "invalid_patterns": [
+        "special-casing public document ids",
+        "using heldout text or hidden-shard signals for candidate selection",
+        "dropping most of the corpus to improve only the public proxy"
+      ]
+    },
+    {
+      "id": "rank_documents",
+      "editable_file": "solution/rank_documents.py",
+      "required_entrypoint": "rank_documents(documents, config)",
+      "research_questions": [
+        "Can ordering or prioritization improve early-token learning?",
+        "Can ranking preserve useful rare sources while removing obvious junk?"
+      ],
+      "hidden_replay_axes": [
+        "curriculum order sensitivity",
+        "domain balance under fixed token budget",
+        "long-tail document retention",
+        "rank stability across seeds"
+      ],
+      "invalid_patterns": [
+        "ranking by public heldout overlap",
+        "hard-coding public fixture order",
+        "using random order without recorded seeds"
+      ]
+    },
+    {
+      "id": "dedup",
+      "editable_file": "solution/dedup.py",
+      "required_entrypoint": "deduplicate_documents(documents, config)",
+      "research_questions": [
+        "Can near-duplicate removal improve effective token diversity?",
+        "Can dedup avoid deleting legitimate repeated technical patterns?"
+      ],
+      "hidden_replay_axes": [
+        "exact duplicate clusters",
+        "near-duplicate paraphrase clusters",
+        "template-heavy documents",
+        "dedup rate versus validation loss"
+      ],
+      "invalid_patterns": [
+        "deduplicating with hidden validation content",
+        "removing documents only because they appear in the public fixture",
+        "reporting dedup rate without selection hashes"
+      ]
+    },
+    {
+      "id": "curriculum",
+      "editable_file": "solution/curriculum.py",
+      "required_entrypoint": "order_documents(documents, config)",
+      "research_questions": [
+        "Can curriculum schedules improve loss at the same token budget?",
+        "Can easy-to-hard or mixture schedules survive hidden seed replay?"
+      ],
+      "hidden_replay_axes": [
+        "seed sensitivity",
+        "short-run versus longer-run direction",
+        "domain curriculum shift",
+        "downstream mini-eval non-regression"
+      ],
+      "invalid_patterns": [
+        "choosing order from hidden loss feedback",
+        "using wall-clock speed as the primary quality metric",
+        "claiming public proxy movement as hidden training evidence"
+      ]
+    }
+  ],
+  "official_replay_axes": [
+    {
+      "id": "hidden-shard-replay",
+      "description": "Apply the submitted hooks to hidden and public corpus shards before fixed tiny-LM training.",
+      "must_record": [
+        "dataset_hash",
+        "selection_hash",
+        "seed_count",
+        "kept_ratio",
+        "dedup_rate"
+      ]
+    },
+    {
+      "id": "repeated-seed-promotion",
+      "description": "Promote only when the median hidden loss improves the locked baseline under the required seed policy.",
+      "must_record": [
+        "baseline_hidden_val_loss",
+        "hidden_val_loss",
+        "downstream_mini_eval",
+        "train_seconds",
+        "peak_memory_mb"
+      ]
+    },
+    {
+      "id": "scaling-audit",
+      "description": "Top promoted candidates are rerun at a larger token or model budget before receiving a scaled label.",
+      "must_record": [
+        "scaled_budget",
+        "scaled_direction",
+        "failure_modes"
+      ]
+    }
+  ]
+}

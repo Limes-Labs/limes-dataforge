@@ -20,6 +20,7 @@ Official submissions must not edit:
 
 - `harness/**`
 - `data/**`
+- `verifier/**`
 - `verifier_data/**`
 - `challenge.json`
 - `score.json`
@@ -41,8 +42,8 @@ python3 scripts/check_submission.py --manifest submission.json --base origin/mai
   candidate.
 - Downloading data, models, labels, or external services during official
   scoring.
-- Modifying the harness, public smoke data, challenge contract, or generated
-  score file.
+- Modifying the harness, public smoke data, verifier specs, challenge contract,
+  or generated score file.
 - Encoding validation or heldout content inside solution code or config.
 - Claiming a public smoke result as a verified research finding.
 - Omitting failed, timed-out, negative, or mixed runs from agent notes when they

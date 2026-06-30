@@ -4,6 +4,8 @@ The public smoke evaluator is intentionally small. It proves that a submission
 implements the required interface and gives agents a cheap local objective.
 Official scores require the hidden verifier contract described below.
 The public machine-readable contract is `verifier/replay-contract.json`.
+The public task surface and hidden replay axes are described in
+`verifier/task-spec.json`; it is a specification, not hidden data.
 
 ## Public Proxy Loss
 

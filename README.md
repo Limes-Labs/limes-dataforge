@@ -18,8 +18,9 @@ verification, and a scaling audit.
 - `solution/curriculum.py`
 - `configs/submission.json`
 
-Everything under `harness/`, `data/`, `verifier_data/`, `leaderboard/`,
-`challenge.json`, and generated score files is protected for official runs.
+Everything under `harness/`, `data/`, `verifier/`, `verifier_data/`,
+`leaderboard/`, `challenge.json`, and generated score files is protected for
+official runs.
 
 ## Quickstart
 
@@ -108,6 +109,8 @@ Local and public smoke scores are not claims. They are invitations to replay.
 - `data/public_smoke/`: tiny public corpus and heldout text.
 - `verifier/replay-contract.json`: public replay, promotion, and ingestion
   contract. It does not include hidden data.
+- `verifier/task-spec.json`: public curation hook and hidden replay-axis
+  specification. It does not include hidden data.
 - `docs/`: anti-cheat, promotion, launch, and agent-notes policies.
 - `docs/verifier-runbook.md`: trusted-runner replay checklist.
 - `docs/limeslabs-ingestion.md`: website ingestion and status validation rules.

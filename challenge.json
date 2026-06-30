@@ -18,6 +18,7 @@
   "forbiddenPaths": [
     "harness/**",
     "data/**",
+    "verifier/**",
     "verifier_data/**",
     "challenge.json",
     "score.json",
