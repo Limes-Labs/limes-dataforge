@@ -14,6 +14,8 @@
 - Train/proposal data: public smoke data and participant-owned local corpora.
 - Validation/selection data: public smoke proxy and public stress diagnostics
   only.
+- Public invariant probes: deterministic interface checks only; passing them is
+  not hidden replay evidence.
 - Heldout/final data: trusted verifier shards and hidden validation splits.
 
 Heldout labels, hidden shard contents, hidden verifier outputs, and private

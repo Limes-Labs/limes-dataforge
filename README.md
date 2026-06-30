@@ -28,6 +28,7 @@ Use Python 3.10 or newer. No external packages are required.
 
 ```bash
 scripts/run_smoke.sh
+python3 scripts/run_invariant_probes.py
 python3 -m unittest discover -s tests
 python3 -m json.tool challenge.json
 ```
@@ -133,6 +134,8 @@ Local and public smoke scores are not claims. They are invitations to replay.
 - `challenge.json`: Benchforge-style challenge contract.
 - `solution/`: editable participant surface.
 - `harness/`: immutable public smoke scorer and verifier-contract check.
+- `harness/invariant_probes.py`: candidate-only public probes for determinism,
+  ID-remap stability, mutation safety, and synthetic document robustness.
 - `data/public_smoke/`: tiny public corpus, stress corpus, and heldout text.
 - `verifier/replay-contract.json`: public replay, promotion, and ingestion
   contract. It does not include hidden data.

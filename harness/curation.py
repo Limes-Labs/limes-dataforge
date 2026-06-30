@@ -190,9 +190,9 @@ def public_score(config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
     )
     score.update(
         {
-        "baseline_name": PUBLIC_BASELINE_NAME,
-        "runtime_seconds": time.perf_counter() - started,
-        "dataset_hash": dataset_hash(),
+            "baseline_name": PUBLIC_BASELINE_NAME,
+            "runtime_seconds": time.perf_counter() - started,
+            "dataset_hash": dataset_hash(),
         }
     )
     return score
