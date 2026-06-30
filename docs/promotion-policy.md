@@ -15,3 +15,11 @@ local -> candidate -> verified -> promoted -> replicated -> scaled
 
 Public smoke scores never receive `verified`, `promoted`, `replicated`, or
 `scaled` status by themselves.
+
+Promotion requests must include a validated promotion packet. The packet binds
+the submission manifest, agent notes, trusted-runner manifest, locked baseline
+record, replay result, result card, and leaderboard entry. A replay result alone
+is not enough for `promoted` or later status.
+
+Schema-only examples may validate, but they must keep `promotion_ready` false
+and must state that they are not official promotion packets.

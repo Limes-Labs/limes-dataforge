@@ -38,7 +38,16 @@ before a DataForge result can move beyond `candidate`.
    python3 scripts/validate_replay_result.py --input path/to/replay-result.json
    ```
 
-11. Promote only if the promotion gates in the contract are satisfied.
+11. Build and validate the promotion packet that binds the replay result,
+    baseline record, runner manifest, agent notes, result card, and leaderboard
+    entry:
+
+    ```bash
+    python3 scripts/validate_promotion_packet.py --input path/to/promotion-packet.json
+    ```
+
+12. Promote only if the promotion gates in the contract and packet are
+    satisfied.
 
 ## Required Trusted Artifacts
 
@@ -50,6 +59,8 @@ before a DataForge result can move beyond `candidate`.
 - trusted-runner manifest JSON that passes `scripts/validate_runner_manifest.py`;
 - baseline record JSON that passes `scripts/validate_baseline_record.py`;
 - replay-result JSON that passes `scripts/validate_replay_result.py`.
+- promotion-packet JSON that passes
+  `scripts/validate_promotion_packet.py`.
 
 ## Anti-Probing Notes
 

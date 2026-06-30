@@ -19,6 +19,13 @@ into promoted leaderboard entries:
 python3 scripts/validate_replay_result.py --input templates/replay-result.example.json
 ```
 
+Promotion packets should validate before the website renders any entry as part
+of the public frontier:
+
+```bash
+python3 scripts/validate_promotion_packet.py --input templates/promotion-packet.example.json
+```
+
 ## Required Rules
 
 - `local` and `candidate` entries must keep `hidden_val_loss` null.
@@ -28,6 +35,8 @@ python3 scripts/validate_replay_result.py --input templates/replay-result.exampl
 - `promoted` and later entries must link a result card.
 - `replicated` and `scaled` entries must have enough replay evidence.
 - `scaled` entries must mark `replay.scaled_audit` true.
+- `promoted` and later entries must have a validated promotion packet binding
+  all replay, baseline, runner, notes, result-card, and leaderboard artifacts.
 
 Example fixtures must say that they are not official leaderboard data.
 
@@ -35,6 +44,6 @@ Example fixtures must say that they are not official leaderboard data.
 
 Candidate entries may be shown as local telemetry, but they must not appear in
 the promoted public frontier. Promotion requires trusted replay evidence from
-the verifier contract, not public smoke scores alone. The replay-result payload
-is the source of promotion evidence; the leaderboard entry is a rendered summary
-for the website.
+the verifier contract, not public smoke scores alone. The promotion packet is
+the source of status evidence; the leaderboard entry is a rendered summary for
+the website.
