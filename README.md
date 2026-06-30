@@ -68,12 +68,16 @@ Completed candidates should include a filled `submission.json` based on
 
 ```bash
 python3 scripts/check_submission.py --manifest submission.json --base origin/main
+python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main
 ```
 
 The guard rejects protected-file edits, files outside the editable surface,
 placeholder manifest values, missing public-score fields, missing stress
 diagnostics, failed invariant probes, and missing search-ledger validation.
-Passing preflight does not imply promotion; it only means the candidate is
+The local bundle validator then reruns the public scorer and invariant probes
+and checks the filled manifest plus search ledger against the fresh local
+outputs. It intentionally ignores `runtime_seconds`, which is not stable across
+runs. Passing preflight does not imply promotion; it only means the candidate is
 shaped for review.
 
 ## Official Verifier Contract

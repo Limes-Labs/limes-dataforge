@@ -31,12 +31,15 @@ Before asking for trusted replay, copy `templates/submission.json` to
 
 ```bash
 python3 scripts/check_submission.py --manifest submission.json --base origin/main
+python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main
 ```
 
 The guard checks that the git diff only touches editable files, that
 `changed_files` exactly matches the checked diff, and that public-score fields
 needed for triage are present. It is an anti-footgun screen, not a hidden
-verifier and not a promotion decision.
+verifier and not a promotion decision. The local bundle validator reruns the
+public scorer and invariant probes, then checks the manifest and search ledger
+against those fresh local outputs. It ignores only unstable runtime telemetry.
 
 Agent-run submissions should also include validated notes:
 
