@@ -44,8 +44,15 @@ Agent-run submissions should also include validated notes:
 python3 scripts/validate_agent_notes.py --input agent-notes.json
 ```
 
+Requests for `verified`, `promoted`, `replicated`, or `scaled` status must also
+include trusted replay evidence that validates locally:
+
+```bash
+python3 scripts/validate_replay_result.py --input replay-result.json
+```
+
 Do not include hidden data, generated score files, large corpora, model weights,
-or local caches.
+protected verifier files, or local caches.
 
 ## Promotion
 
