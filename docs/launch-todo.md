@@ -4,6 +4,10 @@
 - Create fixed dependency lockfile or container.
 - Add trusted runner replay script.
 - Keep `verifier/replay-contract.json` synchronized with the trusted runner.
+- Freeze a real trusted-runner manifest based on
+  `verifier/trusted-runner-manifest.example.json`.
+- Require trusted-runner setup manifests to pass
+  `scripts/validate_runner_manifest.py --input path/to/trusted-runner-manifest.json`.
 - Require trusted runner outputs to pass
   `scripts/validate_replay_result.py --input path/to/replay-result.json`.
 - Fill trusted-only `verifier_data/manifest.json` with shard hashes before

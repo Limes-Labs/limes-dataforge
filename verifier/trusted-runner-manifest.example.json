@@ -1,0 +1,67 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-dataforge",
+  "source": "example-schema-only",
+  "disclaimer": "Schema example only. This is not an official runner, hidden-data manifest, or replay approval.",
+  "runner_id": "example-dataforge-runner",
+  "runner_status": "example",
+  "clean_checkout_required": true,
+  "network_disabled": true,
+  "dependency_lock": {
+    "kind": "container",
+    "digest": "example-container@sha256:0000",
+    "python": "3.11.x",
+    "packages": [
+      "example-lockfile-entry"
+    ]
+  },
+  "hidden_data_manifest": {
+    "path": "verifier_data/manifest.json",
+    "hash_algorithm": "sha256",
+    "hidden_data_bundled": false,
+    "shard_sets": [
+      {
+        "id": "public-train-shard",
+        "purpose": "public-train-replay",
+        "hash": "example-public-train-shard-sha256"
+      },
+      {
+        "id": "hidden-train-shard",
+        "purpose": "hidden-train-replay",
+        "hash": "example-hidden-train-shard-sha256"
+      },
+      {
+        "id": "hidden-validation-shard",
+        "purpose": "hidden-validation-loss",
+        "hash": "example-hidden-validation-shard-sha256"
+      }
+    ]
+  },
+  "training_protocol": {
+    "model_family": "fixed tiny decoder-only language model",
+    "tokenizer": "fixed by verifier lockfile",
+    "optimizer": "fixed by verifier lockfile",
+    "schedule": "fixed by verifier lockfile",
+    "token_budget": "fixed by verifier track",
+    "downstream_mini_eval": "fixed by verifier lockfile"
+  },
+  "seed_policy": {
+    "verified_min_seeds": 1,
+    "promoted_min_seeds": 3,
+    "replicated_min_seeds": 5
+  },
+  "replay_outputs": {
+    "replay_result_json": "path/to/replay-result.json",
+    "result_card_markdown": "path/to/result-card.md",
+    "runner_log": "path/to/runner-log.jsonl",
+    "selection_hash": "recorded per replay",
+    "dataset_hash": "recorded per replay"
+  },
+  "anti_cheat": {
+    "candidate_selection_uses_hidden_data": false,
+    "hidden_scores_returned_to_candidates": false,
+    "public_or_hidden_contamination_check_required": true,
+    "network_disabled_during_scoring": true,
+    "forbidden_paths_checked": true
+  }
+}

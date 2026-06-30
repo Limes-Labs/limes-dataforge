@@ -14,19 +14,25 @@ before a DataForge result can move beyond `candidate`.
    ```
 
 3. Disable network access for official scoring.
-4. Mount trusted-only `verifier_data/` with a private manifest and SHA-256
+4. Validate the trusted-runner setup manifest:
+
+   ```bash
+   python3 scripts/validate_runner_manifest.py --input path/to/trusted-runner-manifest.json
+   ```
+
+5. Mount trusted-only `verifier_data/` with a private manifest and SHA-256
    hashes.
-5. Apply the submitted curation hooks to the public and hidden corpus shards.
-6. Train the fixed tiny LM with the locked tokenizer, architecture, optimizer,
+6. Apply the submitted curation hooks to the public and hidden corpus shards.
+7. Train the fixed tiny LM with the locked tokenizer, architecture, optimizer,
    schedule, seed list, and token budget.
-7. Emit the official result fields listed in `verifier/replay-contract.json`.
-8. Validate the emitted replay payload:
+8. Emit the official result fields listed in `verifier/replay-contract.json`.
+9. Validate the emitted replay payload:
 
    ```bash
    python3 scripts/validate_replay_result.py --input path/to/replay-result.json
    ```
 
-9. Promote only if the promotion gates in the contract are satisfied.
+10. Promote only if the promotion gates in the contract are satisfied.
 
 ## Required Trusted Artifacts
 
@@ -35,6 +41,7 @@ before a DataForge result can move beyond `candidate`.
 - locked baseline result cards for the same seed policy;
 - downstream mini-eval definition and non-regression threshold;
 - replay log with code hash, dataset hash, seed count, and hardware summary.
+- trusted-runner manifest JSON that passes `scripts/validate_runner_manifest.py`;
 - replay-result JSON that passes `scripts/validate_replay_result.py`.
 
 ## Anti-Probing Notes
