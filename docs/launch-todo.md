@@ -13,6 +13,9 @@
 - Fill trusted-only `verifier_data/manifest.json` with shard hashes before
   promotion opens.
 - Publish baseline repeated-seed result cards.
+- Freeze baseline records based on `verifier/baseline-record.example.json`.
+- Require promoted comparisons to use baseline records that pass
+  `scripts/validate_baseline_record.py --input path/to/baseline-record.json`.
 - Define submission frequency limits and anti-probing rules.
 - Add contamination checks for public and hidden data.
 - Add downstream mini-eval non-regression tasks.

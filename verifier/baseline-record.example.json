@@ -1,0 +1,63 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-dataforge",
+  "source": "example-schema-only",
+  "disclaimer": "Schema example only. This is not an official baseline, trusted replay, or promotion comparison record.",
+  "baseline_id": "example-dataforge-baseline",
+  "baseline_status": "example",
+  "runner_id": "example-dataforge-runner",
+  "runner_manifest_hash": "example-runner-manifest-sha256",
+  "dependency_lock_digest": "example-container@sha256:0000",
+  "dataset_hash": "example-hidden-dataset-sha256",
+  "code_hash": "example-baseline-code-sha256",
+  "selection_hash": "example-baseline-selection-sha256",
+  "method": "public_smoke_all_nonempty_dedup_short_to_long",
+  "primary_metric": "hidden_val_loss",
+  "direction": "minimize",
+  "seed_policy": {
+    "verified_min_seeds": 1,
+    "promoted_min_seeds": 3,
+    "replicated_min_seeds": 5
+  },
+  "seeds": [101, 102, 103],
+  "aggregate": {
+    "hidden_val_loss": 2.94,
+    "public_val_loss": 2.98,
+    "downstream_mini_eval": 0.61,
+    "train_seconds": 4200.0,
+    "tokens_per_second": 7142.0,
+    "peak_memory_mb": 6420
+  },
+  "seed_results": [
+    {
+      "seed": 101,
+      "hidden_val_loss": 2.95,
+      "public_val_loss": 2.99,
+      "downstream_mini_eval": 0.60
+    },
+    {
+      "seed": 102,
+      "hidden_val_loss": 2.94,
+      "public_val_loss": 2.98,
+      "downstream_mini_eval": 0.61
+    },
+    {
+      "seed": 103,
+      "hidden_val_loss": 2.93,
+      "public_val_loss": 2.97,
+      "downstream_mini_eval": 0.62
+    }
+  ],
+  "replay_constraints": {
+    "clean_checkout": true,
+    "network_disabled": true,
+    "candidate_selection_uses_hidden_data": false,
+    "hidden_scores_returned_to_candidates": false
+  },
+  "promotion_use": {
+    "used_for_promoted_comparison": false,
+    "minimum_promoted_seeds": 3,
+    "comparison_metric": "hidden_val_loss",
+    "direction": "minimize"
+  }
+}
