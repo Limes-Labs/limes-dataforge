@@ -22,6 +22,7 @@ Every candidate should include the exact local command:
 
 ```bash
 scripts/run_smoke.sh
+python3 scripts/run_public_audit.py
 ```
 
 ## Preflight Guard

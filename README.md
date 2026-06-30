@@ -29,6 +29,7 @@ Use Python 3.10 or newer. No external packages are required.
 ```bash
 scripts/run_smoke.sh
 python3 scripts/run_invariant_probes.py
+python3 scripts/run_public_audit.py
 python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json
 python3 -m unittest discover -s tests
 python3 -m json.tool challenge.json
@@ -143,6 +144,8 @@ Local and public smoke scores are not claims. They are invitations to replay.
 - `harness/`: immutable public smoke scorer and verifier-contract check.
 - `harness/invariant_probes.py`: candidate-only public probes for determinism,
   ID-remap stability, mutation safety, and synthetic document robustness.
+- `harness/public_audit.py`: candidate-only leakage, selection-boundary, source
+  diversity, and static public-data-boundary audit.
 - `data/public_smoke/`: tiny public corpus, stress corpus, and heldout text.
 - `verifier/replay-contract.json`: public replay, promotion, and ingestion
   contract. It does not include hidden data.

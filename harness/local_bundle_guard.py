@@ -5,6 +5,7 @@ from typing import Any
 
 from harness.curation import DEFAULT_CONFIG, public_score
 from harness.invariant_probes import run_invariant_probes
+from harness.public_audit import run_public_audit
 from harness.search_ledger_guard import validate_ledger
 from harness.submission_guard import validate_submission
 
@@ -145,6 +146,11 @@ def validate_local_bundle(
 
     fresh_probes = run_invariant_probes(config_path)
     errors.extend(_compare_invariant_probes(manifest.get("invariant_probes"), fresh_probes))
+    fresh_audit = run_public_audit(config_path)
+    for audit in fresh_audit.get("audits", []):
+        if isinstance(audit, dict) and audit.get("ok") is not True:
+            for error in audit.get("errors", []):
+                errors.append(f"public_audit {audit.get('name')}: {error}")
     errors.extend(_compare_search_ledger(search_ledger, manifest.get("public_score")))
 
     return {
@@ -161,6 +167,10 @@ def validate_local_bundle(
         "fresh_invariant_probes": {
             "ok": fresh_probes.get("ok"),
             "probe_count": fresh_probes.get("probe_count"),
+        },
+        "fresh_public_audit": {
+            "ok": fresh_audit.get("ok"),
+            "audit_count": fresh_audit.get("audit_count"),
         },
         "errors": errors,
     }
