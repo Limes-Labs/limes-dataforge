@@ -22,8 +22,28 @@
     "baseline_name": "public_smoke_all_nonempty_dedup_short_to_long",
     "baseline_document_count": 0,
     "baseline_selection_hash": "<sha256>",
+    "stress_public_proxy_loss": 0.0,
+    "stress_baseline_public_proxy_loss": 0.0,
+    "stress_public_proxy_delta": 0.0,
+    "stress_public_proxy_improvement": 0.0,
+    "stress_kept_ratio": 0.0,
+    "stress_dedup_rate": 0.0,
+    "stress_selected_document_count": 0,
+    "stress_selected_byte_count": 0,
+    "stress_selection_hash": "<sha256>",
+    "stress_baseline_document_count": 0,
+    "stress_baseline_selection_hash": "<sha256>",
+    "stress_dataset_hash": "<sha256>",
     "runtime_seconds": 0.0,
     "dataset_hash": "<sha256>"
+  },
+  "invariant_probes": {
+    "ok": true,
+    "probe_count": 4
+  },
+  "search_ledger": {
+    "path": "search-ledger.json",
+    "validated": true
   },
   "hardware": "local machine description",
   "seeds": [1],

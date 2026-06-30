@@ -25,6 +25,9 @@ def valid_manifest() -> dict:
         {
             "selection_hash": "a" * 64,
             "baseline_selection_hash": "b" * 64,
+            "stress_selection_hash": "d" * 64,
+            "stress_baseline_selection_hash": "e" * 64,
+            "stress_dataset_hash": "f" * 64,
             "baseline_name": "public_smoke_all_nonempty_dedup_short_to_long",
             "dataset_hash": "c" * 64,
         }
@@ -35,6 +38,8 @@ def valid_manifest() -> dict:
         "commit": "0123456789abcdef0123456789abcdef01234567",
         "changed_files": ["solution/filter.py"],
         "public_score": public_score,
+        "invariant_probes": {"ok": True, "probe_count": 4},
+        "search_ledger": {"path": "search-ledger.json", "validated": True},
         "hardware": "local test machine",
         "seeds": [1],
         "selection_trials": 1,
@@ -74,6 +79,24 @@ class SubmissionGuardTests(unittest.TestCase):
             ["solution/filter.py", "solution/rank_documents.py"],
         )
         self.assertTrue(any("exactly match" in error for error in errors))
+
+    def test_missing_stress_score_fields_fail(self) -> None:
+        manifest = valid_manifest()
+        manifest["public_score"].pop("stress_public_proxy_loss")
+        errors = validate_manifest(manifest, self.contract)
+        self.assertTrue(any("stress_public_proxy_loss" in error for error in errors))
+
+    def test_invariant_probe_failure_fails(self) -> None:
+        manifest = valid_manifest()
+        manifest["invariant_probes"]["ok"] = False
+        errors = validate_manifest(manifest, self.contract)
+        self.assertTrue(any("invariant_probes.ok" in error for error in errors))
+
+    def test_search_ledger_must_be_validated(self) -> None:
+        manifest = valid_manifest()
+        manifest["search_ledger"]["validated"] = False
+        errors = validate_manifest(manifest, self.contract)
+        self.assertTrue(any("search_ledger.validated" in error for error in errors))
 
     def test_cli_accepts_explicit_changed_file(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

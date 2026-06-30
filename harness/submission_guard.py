@@ -20,9 +20,23 @@ REQUIRED_PUBLIC_SCORE_FIELDS = {
     "baseline_name",
     "baseline_document_count",
     "baseline_selection_hash",
+    "stress_public_proxy_loss",
+    "stress_baseline_public_proxy_loss",
+    "stress_public_proxy_delta",
+    "stress_public_proxy_improvement",
+    "stress_kept_ratio",
+    "stress_dedup_rate",
+    "stress_selected_document_count",
+    "stress_selected_byte_count",
+    "stress_selection_hash",
+    "stress_baseline_document_count",
+    "stress_baseline_selection_hash",
+    "stress_dataset_hash",
     "runtime_seconds",
     "dataset_hash",
 }
+REQUIRED_INVARIANT_PROBE_FIELDS = {"ok", "probe_count"}
+REQUIRED_SEARCH_LEDGER_FIELDS = {"path", "validated"}
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -89,6 +103,34 @@ def _looks_placeholder(value: Any) -> bool:
     return not stripped or stripped.startswith("<") or "Short description" in stripped
 
 
+def _validate_invariant_probes(value: Any) -> list[str]:
+    if not isinstance(value, dict):
+        return ["manifest invariant_probes must be an object"]
+    errors: list[str] = []
+    missing = sorted(REQUIRED_INVARIANT_PROBE_FIELDS.difference(value))
+    if missing:
+        errors.append("manifest invariant_probes missing fields: " + ", ".join(missing))
+    if value.get("ok") is not True:
+        errors.append("manifest invariant_probes.ok must be true")
+    if not isinstance(value.get("probe_count"), int) or value["probe_count"] < 4:
+        errors.append("manifest invariant_probes.probe_count must be an integer >= 4")
+    return errors
+
+
+def _validate_search_ledger(value: Any) -> list[str]:
+    if not isinstance(value, dict):
+        return ["manifest search_ledger must be an object"]
+    errors: list[str] = []
+    missing = sorted(REQUIRED_SEARCH_LEDGER_FIELDS.difference(value))
+    if missing:
+        errors.append("manifest search_ledger missing fields: " + ", ".join(missing))
+    if _looks_placeholder(value.get("path")):
+        errors.append("manifest search_ledger.path must be concrete")
+    if value.get("validated") is not True:
+        errors.append("manifest search_ledger.validated must be true")
+    return errors
+
+
 def validate_manifest(manifest: dict[str, Any], contract: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     if manifest.get("challenge") != contract.get("id"):
@@ -112,6 +154,9 @@ def validate_manifest(manifest: dict[str, Any], contract: dict[str, Any]) -> lis
         missing = sorted(REQUIRED_PUBLIC_SCORE_FIELDS.difference(public_score))
         if missing:
             errors.append("manifest public_score missing fields: " + ", ".join(missing))
+
+    errors.extend(_validate_invariant_probes(manifest.get("invariant_probes")))
+    errors.extend(_validate_search_ledger(manifest.get("search_ledger")))
 
     if _looks_placeholder(manifest.get("method_summary")):
         errors.append("manifest method_summary must describe the submitted curation idea")
