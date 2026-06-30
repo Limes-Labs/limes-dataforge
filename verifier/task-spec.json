@@ -6,6 +6,8 @@
     "candidate_only": true,
     "document_pool": "data/public_smoke/documents.jsonl",
     "heldout_text": "data/public_smoke/heldout.txt",
+    "stress_document_pool": "data/public_smoke/stress_documents.jsonl",
+    "stress_heldout_text": "data/public_smoke/stress_heldout.txt",
     "public_metric": "public_proxy_loss",
     "official_metric": "hidden_val_loss"
   },

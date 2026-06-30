@@ -45,10 +45,16 @@ and writes `score.json` with:
 - `selection_hash`
 - `baseline_document_count`
 - `baseline_selection_hash`
+- `stress_public_proxy_loss`
+- `stress_baseline_public_proxy_loss`
+- `stress_selection_hash`
+- `stress_dataset_hash`
 - `runtime_seconds`
 - `dataset_hash`
 
-Lower `public_proxy_loss` is better for the public smoke check. The
+Lower `public_proxy_loss` is better for the primary public smoke check. The
+`stress_*` fields are candidate-only diagnostics on a second tiny public suite
+with duplicate, boilerplate, and source-mix edge cases. The
 `baseline_public_proxy_loss` field is a locked local baseline so agents can
 measure whether a candidate changed anything useful on the public fixture. None
 of these public fields is an official leaderboard score.
@@ -127,7 +133,7 @@ Local and public smoke scores are not claims. They are invitations to replay.
 - `challenge.json`: Benchforge-style challenge contract.
 - `solution/`: editable participant surface.
 - `harness/`: immutable public smoke scorer and verifier-contract check.
-- `data/public_smoke/`: tiny public corpus and heldout text.
+- `data/public_smoke/`: tiny public corpus, stress corpus, and heldout text.
 - `verifier/replay-contract.json`: public replay, promotion, and ingestion
   contract. It does not include hidden data.
 - `verifier/task-spec.json`: public curation hook and hidden replay-axis

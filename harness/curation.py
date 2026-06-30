@@ -12,6 +12,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_DATA = ROOT / "data" / "public_smoke" / "documents.jsonl"
 PUBLIC_HELDOUT = ROOT / "data" / "public_smoke" / "heldout.txt"
+PUBLIC_STRESS_DATA = ROOT / "data" / "public_smoke" / "stress_documents.jsonl"
+PUBLIC_STRESS_HELDOUT = ROOT / "data" / "public_smoke" / "stress_heldout.txt"
 DEFAULT_CONFIG = ROOT / "configs" / "submission.json"
 PUBLIC_BASELINE_NAME = "public_smoke_all_nonempty_dedup_short_to_long"
 
@@ -34,11 +36,19 @@ def load_documents(path: Path = PUBLIC_DATA) -> list[dict[str, Any]]:
     return documents
 
 
-def dataset_hash() -> str:
+def _hash_paths(paths: tuple[Path, ...]) -> str:
     digest = hashlib.sha256()
-    for path in (PUBLIC_DATA, PUBLIC_HELDOUT):
+    for path in paths:
         digest.update(path.read_bytes())
     return digest.hexdigest()
+
+
+def dataset_hash() -> str:
+    return _hash_paths((PUBLIC_DATA, PUBLIC_HELDOUT))
+
+
+def stress_dataset_hash() -> str:
+    return _hash_paths((PUBLIC_STRESS_DATA, PUBLIC_STRESS_HELDOUT))
 
 
 def selection_hash(documents: list[dict[str, Any]]) -> str:
@@ -119,20 +129,18 @@ def byte_unigram_bpb(train_text: str, heldout_text: str) -> float:
     return loss_bits / max(1, len(heldout_bytes))
 
 
-def public_score(config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
-    import time
-
-    started = time.perf_counter()
-    documents = load_documents()
-    config = load_json(config_path)
+def _score_loaded_documents(
+    documents: list[dict[str, Any]],
+    heldout_text: str,
+    config: dict[str, Any],
+) -> dict[str, Any]:
     applied = apply_solution(documents, config)
     baseline = apply_public_baseline(documents)
     selected_text = "\n".join(str(doc["text"]) for doc in applied["documents"])
     baseline_text = "\n".join(str(doc["text"]) for doc in baseline["documents"])
-    heldout_text = PUBLIC_HELDOUT.read_text(encoding="utf-8")
     public_proxy_loss = byte_unigram_bpb(selected_text, heldout_text)
     baseline_public_proxy_loss = byte_unigram_bpb(baseline_text, heldout_text)
-    score = {
+    return {
         "public_proxy_loss": public_proxy_loss,
         "baseline_public_proxy_loss": baseline_public_proxy_loss,
         "public_proxy_delta": public_proxy_loss - baseline_public_proxy_loss,
@@ -142,13 +150,49 @@ def public_score(config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
         "selected_document_count": len(applied["documents"]),
         "selected_byte_count": len(selected_text.encode("utf-8")),
         "selection_hash": selection_hash(applied["documents"]),
-        "baseline_name": PUBLIC_BASELINE_NAME,
         "baseline_document_count": len(baseline["documents"]),
         "baseline_kept_ratio": baseline["kept_ratio"],
         "baseline_dedup_rate": baseline["dedup_rate"],
         "baseline_selection_hash": selection_hash(baseline["documents"]),
-        "runtime_seconds": time.perf_counter() - started,
-        "dataset_hash": dataset_hash(),
         "selected_document_ids": [doc["id"] for doc in applied["documents"]],
     }
+
+
+def public_score(config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
+    import time
+
+    started = time.perf_counter()
+    documents = load_documents()
+    stress_documents = load_documents(PUBLIC_STRESS_DATA)
+    config = load_json(config_path)
+    heldout_text = PUBLIC_HELDOUT.read_text(encoding="utf-8")
+    stress_heldout_text = PUBLIC_STRESS_HELDOUT.read_text(encoding="utf-8")
+    score = _score_loaded_documents(documents, heldout_text, config)
+    stress_score = _score_loaded_documents(stress_documents, stress_heldout_text, config)
+    score.update(
+        {
+            "stress_public_proxy_loss": stress_score["public_proxy_loss"],
+            "stress_baseline_public_proxy_loss": stress_score["baseline_public_proxy_loss"],
+            "stress_public_proxy_delta": stress_score["public_proxy_delta"],
+            "stress_public_proxy_improvement": stress_score["public_proxy_improvement"],
+            "stress_kept_ratio": stress_score["kept_ratio"],
+            "stress_dedup_rate": stress_score["dedup_rate"],
+            "stress_selected_document_count": stress_score["selected_document_count"],
+            "stress_selected_byte_count": stress_score["selected_byte_count"],
+            "stress_selection_hash": stress_score["selection_hash"],
+            "stress_baseline_document_count": stress_score["baseline_document_count"],
+            "stress_baseline_kept_ratio": stress_score["baseline_kept_ratio"],
+            "stress_baseline_dedup_rate": stress_score["baseline_dedup_rate"],
+            "stress_baseline_selection_hash": stress_score["baseline_selection_hash"],
+            "stress_dataset_hash": stress_dataset_hash(),
+            "stress_selected_document_ids": stress_score["selected_document_ids"],
+        }
+    )
+    score.update(
+        {
+        "baseline_name": PUBLIC_BASELINE_NAME,
+        "runtime_seconds": time.perf_counter() - started,
+        "dataset_hash": dataset_hash(),
+        }
+    )
     return score

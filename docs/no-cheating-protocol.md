@@ -4,13 +4,16 @@
 
 - Objective: improve fixed small-LM training by changing data curation only.
 - Public metric: `public_proxy_loss`.
+- Public stress diagnostics: `stress_public_proxy_loss` and related `stress_*`
+  fields.
 - Official metric: `hidden_val_loss`.
 - Direction: lower is better.
 
 ## Data Boundaries
 
 - Train/proposal data: public smoke data and participant-owned local corpora.
-- Validation/selection data: public smoke proxy only.
+- Validation/selection data: public smoke proxy and public stress diagnostics
+  only.
 - Heldout/final data: trusted verifier shards and hidden validation splits.
 
 Heldout labels, hidden shard contents, hidden verifier outputs, and private

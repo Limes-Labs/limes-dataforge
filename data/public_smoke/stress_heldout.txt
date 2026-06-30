@@ -1,0 +1,1 @@
+Agentic data curation should keep evidence, report negative trials, and avoid treating public proxy wins as trusted replay.
