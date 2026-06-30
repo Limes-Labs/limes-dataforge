@@ -25,6 +25,9 @@ leaderboard results may not influence candidate selection.
 
 Submissions must report local hardware, runtime, selection trials, seeds,
 preprocessing cost, and any agent search used to choose the candidate.
+Search-ledger packets should validate with
+`python3 scripts/validate_search_ledger.py --input path/to/search-ledger.json`
+before replay is requested.
 
 ## Promotion Gate
 
