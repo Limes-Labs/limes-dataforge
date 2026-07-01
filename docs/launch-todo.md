@@ -13,8 +13,10 @@
 - Require promotion packets to pass
   `scripts/validate_promotion_packet.py --input path/to/promotion-packet.json`
   before any `promoted`, `replicated`, or `scaled` website status.
-- Fill trusted-only `verifier_data/manifest.json` with shard hashes before
-  promotion opens.
+- Populate trusted-only `verifier_data/manifest.json` from the public shape in
+  `verifier/hidden-manifest.example.json` and require it to pass
+  `scripts/validate_hidden_manifest.py --input path/to/verifier_data/manifest.json`
+  before promotion opens.
 - Publish baseline repeated-seed result cards.
 - Freeze baseline records based on `verifier/baseline-record.example.json`.
 - Require promoted comparisons to use baseline records that pass

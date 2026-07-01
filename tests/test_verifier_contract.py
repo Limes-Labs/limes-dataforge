@@ -27,6 +27,10 @@ class VerifierContractTests(unittest.TestCase):
     def test_contract_keeps_hidden_data_private_and_no_network(self) -> None:
         contract = self.load_contract()
         self.assertFalse(contract["hidden_data_policy"]["hidden_data_bundled"])
+        self.assertEqual(
+            contract["hidden_data_policy"]["public_schema_example_path"],
+            "verifier/hidden-manifest.example.json",
+        )
         self.assertFalse(contract["hidden_data_policy"]["candidate_selection_uses_hidden_data"])
         self.assertEqual(contract["trusted_runner"]["network"], "disabled during official scoring")
         self.assertTrue(contract["trusted_runner"]["clean_checkout"])

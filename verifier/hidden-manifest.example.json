@@ -1,0 +1,48 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-dataforge",
+  "manifest_kind": "trusted-hidden-shard-manifest",
+  "source": "example-schema-only",
+  "disclaimer": "Schema example only. This is not a real hidden manifest and does not disclose hidden data.",
+  "hidden_manifest_ready": false,
+  "hash_algorithm": "sha256",
+  "shard_policy": {
+    "candidate_selection_uses_hidden_data": false,
+    "hidden_shards_disclosed_to_candidates": false,
+    "public_or_hidden_contamination_check_required": true
+  },
+  "shards": [
+    {
+      "id": "hidden-train-shard-000",
+      "role": "train",
+      "split": "hidden_train",
+      "path": "verifier_data/shards/hidden-train-000.jsonl",
+      "sha256": "example-hidden-train-shard-sha256",
+      "document_count": 0,
+      "byte_count": 0,
+      "token_estimate": 0,
+      "disclosed_to_candidates": false
+    },
+    {
+      "id": "hidden-validation-shard-000",
+      "role": "validation",
+      "split": "hidden_validation",
+      "path": "verifier_data/shards/hidden-validation-000.txt",
+      "sha256": "example-hidden-validation-shard-sha256",
+      "document_count": 0,
+      "byte_count": 0,
+      "token_estimate": 0,
+      "disclosed_to_candidates": false
+    }
+  ],
+  "seed_policy": {
+    "verified_min_seeds": 1,
+    "promoted_min_seeds": 3,
+    "replicated_min_seeds": 5
+  },
+  "contamination_checks": {
+    "public_smoke_overlap_check": false,
+    "heldout_overlap_check": false,
+    "external_benchmark_overlap_check": false
+  }
+}
