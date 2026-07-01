@@ -45,6 +45,11 @@
     "path": "search-ledger.json",
     "validated": true
   },
+  "source_bundle": {
+    "path": "submission-bundle.json",
+    "validated": true,
+    "bundle_sha256": "<sha256>"
+  },
   "hardware": "local machine description",
   "seeds": [1],
   "selection_trials": 1,
