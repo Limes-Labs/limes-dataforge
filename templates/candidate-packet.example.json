@@ -1,0 +1,79 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-dataforge",
+  "packet_kind": "local-candidate-packet",
+  "source": "example-schema-only",
+  "disclaimer": "Schema example only. This is not a real candidate packet, replay result, or promotion request.",
+  "packet_id": "example-dataforge-local-candidate",
+  "status": "candidate",
+  "commit": "example-commit",
+  "candidate_ready": false,
+  "artifacts": {
+    "submission_manifest": {
+      "path": "submission.json",
+      "sha256": "example-submission-sha256",
+      "validated": true
+    },
+    "source_bundle": {
+      "path": "submission-bundle.json",
+      "sha256": "example-source-bundle-sha256",
+      "validated": true
+    },
+    "search_ledger": {
+      "path": "search-ledger.json",
+      "sha256": "example-search-ledger-sha256",
+      "validated": true
+    },
+    "agent_notes": {
+      "path": "agent-notes.json",
+      "sha256": "example-agent-notes-sha256",
+      "validated": true
+    },
+    "public_score": {
+      "path": "score.json",
+      "sha256": "example-public-score-sha256",
+      "validated": true
+    },
+    "invariant_probes": {
+      "path": "invariant-probes.json",
+      "sha256": "example-invariant-probes-sha256",
+      "validated": true
+    },
+    "public_audit": {
+      "path": "public-audit.json",
+      "sha256": "example-public-audit-sha256",
+      "validated": true
+    }
+  },
+  "evidence": {
+    "submission_manifest_validated": true,
+    "source_bundle_validated": true,
+    "search_ledger_validated": true,
+    "agent_notes_validated": true,
+    "public_score_present": true,
+    "invariant_probes_passed": true,
+    "public_audit_passed": true,
+    "local_bundle_validated": true,
+    "no_forbidden_paths": true,
+    "public_smoke_candidate_only": true
+  },
+  "local_metrics": {
+    "public_proxy_loss": 4.7564438033221315,
+    "baseline_public_proxy_loss": 4.743833261969027,
+    "public_proxy_improvement": -0.012610541353104132,
+    "stress_public_proxy_loss": 5.036544620086106,
+    "selection_hash": "0b09e7480ecadb5eb319c36e1e2590ecf0279592ca9dd910354031fb3f0c30f7",
+    "dataset_hash": "57e4c9b7ae486a6e1ee63c6665eeedc9ae2489dba27fcd0b8462ae2a685f168f",
+    "source_bundle_sha256": "example-source-bundle-payload-sha256"
+  },
+  "gates": {
+    "passed": [
+      "schema validation"
+    ],
+    "failed": [],
+    "blocked": [
+      "trusted replay not run",
+      "hidden verifier not run"
+    ]
+  }
+}
