@@ -23,6 +23,7 @@ Every candidate should include the exact local command:
 ```bash
 scripts/run_smoke.sh
 python3 scripts/run_public_audit.py
+python3 scripts/check_public_baseline.py --input baselines/public-smoke-baseline.json
 ```
 
 ## Preflight Guard

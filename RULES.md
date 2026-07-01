@@ -19,6 +19,7 @@ Official submissions may edit only:
 Official submissions must not edit:
 
 - `harness/**`
+- `baselines/**`
 - `data/**`
 - `verifier/**`
 - `verifier_data/**`
@@ -34,6 +35,7 @@ review:
 
 ```bash
 python3 scripts/run_public_audit.py
+python3 scripts/check_public_baseline.py --input baselines/public-smoke-baseline.json
 python3 scripts/check_submission.py --manifest submission.json --base origin/main
 python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main
 ```

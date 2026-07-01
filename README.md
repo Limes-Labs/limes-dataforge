@@ -18,9 +18,9 @@ verification, and a scaling audit.
 - `solution/curriculum.py`
 - `configs/submission.json`
 
-Everything under `harness/`, `data/`, `verifier/`, `verifier_data/`,
-`leaderboard/`, `challenge.json`, and generated score files is protected for
-official runs.
+Everything under `harness/`, `baselines/`, `data/`, `verifier/`,
+`verifier_data/`, `leaderboard/`, `challenge.json`, and generated score files
+is protected for official runs.
 
 ## Quickstart
 
@@ -30,6 +30,7 @@ Use Python 3.10 or newer. No external packages are required.
 scripts/run_smoke.sh
 python3 scripts/run_invariant_probes.py
 python3 scripts/run_public_audit.py
+python3 scripts/check_public_baseline.py --input baselines/public-smoke-baseline.json
 python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json
 python3 -m unittest discover -s tests
 python3 -m json.tool challenge.json
@@ -146,6 +147,8 @@ Local and public smoke scores are not claims. They are invitations to replay.
   ID-remap stability, mutation safety, and synthetic document robustness.
 - `harness/public_audit.py`: candidate-only leakage, selection-boundary, source
   diversity, and static public-data-boundary audit.
+- `baselines/public-smoke-baseline.json`: stable public smoke contract used to
+  detect accidental benchmark drift. It is not an official leaderboard baseline.
 - `data/public_smoke/`: tiny public corpus, stress corpus, and heldout text.
 - `verifier/replay-contract.json`: public replay, promotion, and ingestion
   contract. It does not include hidden data.

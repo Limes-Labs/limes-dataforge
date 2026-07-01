@@ -33,7 +33,7 @@ body:
       options:
         - label: I changed only `solution/filter.py`, `solution/rank_documents.py`, `solution/dedup.py`, `solution/curriculum.py`, or `configs/submission.json`.
           required: true
-        - label: I did not edit `harness/**`, `data/**`, `verifier/**`, `verifier_data/**`, `challenge.json`, `score.json`, or `leaderboard/**`.
+        - label: I did not edit `harness/**`, `baselines/**`, `data/**`, `verifier/**`, `verifier_data/**`, `challenge.json`, `score.json`, or `leaderboard/**`.
           required: true
         - label: I read `verifier/task-spec.json` and understand that public smoke data is candidate-only.
           required: true
