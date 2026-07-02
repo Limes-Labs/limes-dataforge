@@ -35,6 +35,13 @@ class VerifierContractTests(unittest.TestCase):
         self.assertEqual(contract["trusted_runner"]["network"], "disabled during official scoring")
         self.assertTrue(contract["trusted_runner"]["clean_checkout"])
 
+    def test_contract_defines_trusted_replay_request_policy(self) -> None:
+        policy = self.load_contract()["trusted_replay_request_policy"]
+        self.assertEqual(policy["request_template_path"], "templates/replay-request.example.json")
+        self.assertEqual(policy["requested_status"], "verified")
+        self.assertFalse(policy["hidden_feedback_for_candidate_selection"])
+        self.assertEqual(policy["max_trusted_replays_per_submission"], 1)
+
     def test_contract_lists_official_result_fields(self) -> None:
         metrics = set(self.load_contract()["official_result_schema"]["metrics"])
         for required in {

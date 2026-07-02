@@ -16,37 +16,43 @@ before a DataForge result can move beyond `candidate`.
 
 3. Confirm the local bundle report is clean. It should bind the manifest,
    public score, invariant probes, and search ledger before any hidden replay.
-4. Disable network access for official scoring.
-5. Validate the trusted-runner setup manifest:
+4. Validate the trusted replay request before scheduling hidden work:
+
+   ```bash
+   python3 scripts/validate_replay_request.py --input path/to/replay-request.json
+   ```
+
+5. Disable network access for official scoring.
+6. Validate the trusted-runner setup manifest:
 
    ```bash
    python3 scripts/validate_runner_manifest.py --input path/to/trusted-runner-manifest.json
    ```
 
-6. Mount trusted-only `verifier_data/` with a private manifest and SHA-256
+7. Mount trusted-only `verifier_data/` with a private manifest and SHA-256
    hashes, then validate that manifest against the public shape:
 
    ```bash
    python3 scripts/validate_hidden_manifest.py --input path/to/verifier_data/manifest.json
    ```
 
-7. Validate the locked baseline record for the same runner and seed policy:
+8. Validate the locked baseline record for the same runner and seed policy:
 
    ```bash
    python3 scripts/validate_baseline_record.py --input path/to/baseline-record.json
    ```
 
-8. Apply the submitted curation hooks to the public and hidden corpus shards.
-9. Train the fixed tiny LM with the locked tokenizer, architecture, optimizer,
+9. Apply the submitted curation hooks to the public and hidden corpus shards.
+10. Train the fixed tiny LM with the locked tokenizer, architecture, optimizer,
    schedule, seed list, and token budget.
-10. Emit the official result fields listed in `verifier/replay-contract.json`.
-11. Validate the emitted replay payload:
+11. Emit the official result fields listed in `verifier/replay-contract.json`.
+12. Validate the emitted replay payload:
 
    ```bash
    python3 scripts/validate_replay_result.py --input path/to/replay-result.json
    ```
 
-12. Build and validate the promotion packet that binds the replay result,
+13. Build and validate the promotion packet that binds the replay result,
     baseline record, runner manifest, agent notes, result card, and leaderboard
     entry:
 
@@ -54,7 +60,7 @@ before a DataForge result can move beyond `candidate`.
     python3 scripts/validate_promotion_packet.py --input path/to/promotion-packet.json
     ```
 
-13. Promote only if the promotion gates in the contract and packet are
+14. Promote only if the promotion gates in the contract and packet are
     satisfied.
 
 ## Required Trusted Artifacts
@@ -62,6 +68,7 @@ before a DataForge result can move beyond `candidate`.
 - hidden shard manifest and hashes;
 - fixed dependency lockfile or container digest;
 - hidden manifest JSON that passes `scripts/validate_hidden_manifest.py`;
+- replay request JSON that passes `scripts/validate_replay_request.py`;
 - locked baseline result cards for the same seed policy;
 - downstream mini-eval definition and non-regression threshold;
 - replay log with code hash, dataset hash, seed count, and hardware summary;

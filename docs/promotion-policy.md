@@ -16,6 +16,11 @@ local -> candidate -> verified -> promoted -> replicated -> scaled
 Public smoke scores never receive `verified`, `promoted`, `replicated`, or
 `scaled` status by themselves.
 
+Before any trusted replay is scheduled, the candidate must have a validated
+replay request. The request binds the candidate packet, replay quota, freeze
+state, and anti-probing declarations. A replay request can ask only for
+`verified`; later status changes require replay and promotion packets.
+
 Promotion requests must include a validated promotion packet. The packet binds
 the submission manifest, agent notes, trusted-runner manifest, locked baseline
 record, replay result, result card, and leaderboard entry. A replay result alone

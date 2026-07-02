@@ -10,6 +10,9 @@
   `scripts/validate_runner_manifest.py --input path/to/trusted-runner-manifest.json`.
 - Require trusted runner outputs to pass
   `scripts/validate_replay_result.py --input path/to/replay-result.json`.
+- Require trusted replay requests to pass
+  `scripts/validate_replay_request.py --input path/to/replay-request.json`
+  before hidden work is scheduled.
 - Require promotion packets to pass
   `scripts/validate_promotion_packet.py --input path/to/promotion-packet.json`
   before any `promoted`, `replicated`, or `scaled` website status.
@@ -22,6 +25,7 @@
 - Require promoted comparisons to use baseline records that pass
   `scripts/validate_baseline_record.py --input path/to/baseline-record.json`.
 - Define submission frequency limits and anti-probing rules.
+- Wire replay-request quotas into the trusted runner queue.
 - Add contamination checks for public and hidden data.
 - Add downstream mini-eval non-regression tasks.
 - Add method-family fields for leaderboard grouping.

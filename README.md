@@ -35,6 +35,7 @@ python3 scripts/build_submission_bundle.py --changed-file solution/filter.py --o
 python3 scripts/validate_submission_bundle.py --input submission-bundle.json
 python3 scripts/validate_candidate_packet.py --input templates/candidate-packet.example.json --schema-only
 python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json
+python3 scripts/validate_replay_request.py --input templates/replay-request.example.json --schema-only
 python3 scripts/validate_hidden_manifest.py --input verifier/hidden-manifest.example.json
 python3 -m unittest discover -s tests
 python3 -m json.tool challenge.json
@@ -110,6 +111,16 @@ python3 scripts/validate_candidate_packet.py --input candidate-packet.json
 A local candidate packet is still candidate-only evidence. It records that the
 public artifacts are internally consistent; it does not replace trusted replay,
 hidden validation, repeated seeds, or scaling audit.
+
+Trusted replay requests should be validated before they enter any hidden
+runner queue:
+
+```bash
+python3 scripts/validate_replay_request.py --input templates/replay-request.example.json --schema-only
+```
+
+For real requests, omit `--schema-only` so the guard can check artifact hashes
+and the referenced candidate packet.
 
 ## Official Verifier Contract
 
@@ -187,6 +198,8 @@ Local and public smoke scores are not claims. They are invitations to replay.
   for replay and rejects stale or protected-file bundles.
 - `harness/candidate_packet_guard.py`: validates local candidate evidence
   packets before trusted replay is requested.
+- `harness/replay_request_guard.py`: validates anti-probing replay requests
+  before hidden runner access.
 - `harness/hidden_manifest_guard.py`: validates the trusted-only hidden shard
   manifest shape without exposing hidden data.
 - `baselines/public-smoke-baseline.json`: stable public smoke contract used to
@@ -214,6 +227,8 @@ Local and public smoke scores are not claims. They are invitations to replay.
   bundle shape for replay packaging.
 - `templates/candidate-packet.example.json`: schema-only local candidate packet
   shape for agents and reviewers.
+- `templates/replay-request.example.json`: schema-only trusted replay request
+  shape. It is not an official replay request.
 - `templates/replay-result.example.json`: schema-only trusted replay result
   packet.
 - `templates/promotion-packet.example.json`: schema-only promotion evidence

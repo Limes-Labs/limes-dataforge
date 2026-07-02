@@ -7,6 +7,7 @@
   "trusted_runner_manifest_path": "verifier/trusted-runner-manifest.example.json",
   "baseline_record_path": "verifier/baseline-record.example.json",
   "hidden_manifest_example_path": "verifier/hidden-manifest.example.json",
+  "replay_request_template_path": "templates/replay-request.example.json",
   "official_primary_metric": "hidden_val_loss",
   "public_metric": "public_proxy_loss",
   "score_direction": "minimize",
@@ -48,6 +49,15 @@
     "dependency_policy": "fixed lockfile or container before promotion opens",
     "generated_files_may_not_be_submitted": ["score.json"],
     "public_scores_are_candidate_only": true
+  },
+  "trusted_replay_request_policy": {
+    "request_template_path": "templates/replay-request.example.json",
+    "validator": "python3 scripts/validate_replay_request.py --input path/to/replay-request.json",
+    "requested_status": "verified",
+    "hidden_feedback_for_candidate_selection": false,
+    "max_trusted_replays_per_submission": 1,
+    "max_trusted_replays_per_team_per_7_days": 2,
+    "max_trusted_replays_per_team_per_30_days": 5
   },
   "hidden_data_policy": {
     "hidden_data_bundled": false,

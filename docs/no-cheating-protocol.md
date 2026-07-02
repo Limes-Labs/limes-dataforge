@@ -29,6 +29,12 @@ Search-ledger packets should validate with
 `python3 scripts/validate_search_ledger.py --input path/to/search-ledger.json`
 before replay is requested.
 
+Trusted replay requests must validate with
+`python3 scripts/validate_replay_request.py --input path/to/replay-request.json`.
+The request must freeze the candidate, bind the local candidate packet, stay
+within replay quotas, and explicitly reject hidden feedback for candidate
+selection.
+
 ## Promotion Gate
 
 Promote only after trusted replay shows repeated-seed improvement over the
